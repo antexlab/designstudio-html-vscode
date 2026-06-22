@@ -1,0 +1,75 @@
+{
+  "name": "designstudio-html-vscode",
+  "displayName": "Design Studio (HTML)",
+  "description": "A visual HTML editor inside VS Code — click to edit HTML pages and save straight back to the original file. Safe external-URL proxy and multilingual UI (en/ko/ja).",
+  "version": "0.1.0",
+  "publisher": "antexlab",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/antexlab/designstudio-html-vscode.git" },
+  "bugs": { "url": "https://github.com/antexlab/designstudio-html-vscode/issues" },
+  "homepage": "https://github.com/antexlab/designstudio-html-vscode#readme",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Visualization", "Other"],
+  "keywords": ["html", "editor", "visual", "wysiwyg", "design", "webview", "no-code", "i18n"],
+  "galleryBanner": { "color": "#7c3aed", "theme": "dark" },
+  "icon": "media/icon.png",
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "designstudio", "title": "Design Studio", "icon": "media/sidebar.svg" }
+      ]
+    },
+    "views": {
+      "designstudio": [
+        { "id": "designstudio.files", "name": "HTML Files", "contextualTitle": "Design Studio" }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "designstudio.files",
+        "contents": "Your HTML files appear here. Click a file to open it in the Design Studio visual editor.\n[Select Folder](command:designstudio.selectFolder)\n[Open Folder](command:vscode.openFolder)\n[Open Blank Editor](command:designstudio.open)"
+      }
+    ],
+    "commands": [
+      { "command": "designstudio.open", "title": "Open Editor (blank tool window)", "category": "Design Studio", "icon": "$(add)" },
+      { "command": "designstudio.openFile", "title": "Open in Design Studio", "category": "Design Studio" },
+      { "command": "designstudio.selectFolder", "title": "Select Folder", "category": "Design Studio", "icon": "$(folder-opened)" },
+      { "command": "designstudio.refreshFiles", "title": "Refresh", "category": "Design Studio", "icon": "$(refresh)" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "designstudio.selectFolder", "when": "view == designstudio.files", "group": "navigation@0" },
+        { "command": "designstudio.open", "when": "view == designstudio.files", "group": "navigation@1" },
+        { "command": "designstudio.refreshFiles", "when": "view == designstudio.files", "group": "navigation@2" }
+      ],
+      "explorer/context": [
+        { "command": "designstudio.openFile", "when": "resourceExtname == .html || resourceExtname == .htm", "group": "navigation@9" }
+      ],
+      "commandPalette": [
+        { "command": "designstudio.openFile", "when": "true" },
+        { "command": "designstudio.selectFolder", "when": "true" },
+        { "command": "designstudio.refreshFiles", "when": "false" }
+      ]
+    },
+    "customEditors": [
+      {
+        "viewType": "designstudio.htmlEditor",
+        "displayName": "Design Studio (Visual Edit)",
+        "selector": [
+          { "filenamePattern": "*.html" },
+          { "filenamePattern": "*.htm" }
+        ],
+        "priority": "option"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.2.0"
+  }
+}
